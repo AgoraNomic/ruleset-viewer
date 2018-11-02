@@ -5,9 +5,11 @@ import Markdown from 'react-markdown'
 import asciiRules from '../lib/ascii-rules.json'
 import keywords from '../lib/keywords.json'
 
-function addKeywords(text: string) {
+function addKeywords(text: string, id: number) {
     Object.keys(keywords).forEach(keyword => {
-        text = text.replace(new RegExp("\\b" + keyword + "\\b"), `[${keyword}](#Rule${(keywords as {[keyword: string]: number})[keyword]})`)
+        if((keywords as {[keyword: string]: number})[keyword] !== id ) { 
+            text = text.replace(new RegExp("\\b" + keyword + "\\b"), `[${keyword}](#Rule${(keywords as {[keyword: string]: number})[keyword]})`)
+        }
     })
     return text
 }
@@ -23,7 +25,7 @@ export default function Group({rule}: {rule: RuleType}) {
             <span className={Styles.power}>Power {rule.power}</span>
         </h2>
         <div className={Styles.text}>
-            {asciiRules.includes(rule.id) ? <pre>{rule.text}</pre> : <Markdown source={addKeywords(rule.text)} />}
+            {asciiRules.includes(rule.id) ? <pre>{rule.text}</pre> : <Markdown source={addKeywords(rule.text, rule.id)} />}
         </div>
     </div>
 }
