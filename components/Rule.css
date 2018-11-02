@@ -1,0 +1,23 @@
+.id {
+    width: 4em;
+    display: inline-block;
+    text-align: right;
+    padding-right: .5em;
+}
+
+.rev {
+    color: grey;
+}
+
+.power {
+    color: grey;
+    float: right;
+}
+
+.text {
+    margin-left: 6.75em;
+}
+
+.title {
+    font-size: 1.5em;
+}
