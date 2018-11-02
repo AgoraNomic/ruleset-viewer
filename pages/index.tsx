@@ -13,6 +13,7 @@ class Home extends React.Component<{ruleset: Ruleset}> {
 	render() {
 		return <div className={Styles.home}>
 			<Head>
+				<meta name="viewport" content="width=device-width, initial-scale=1" />
 				<link href="https://fonts.googleapis.com/css?family=Merriweather:400,400i,700" rel="stylesheet" />
 			</Head>
 			<main className={Styles.main}>

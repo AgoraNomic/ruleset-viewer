@@ -8,6 +8,10 @@
     font-size: .75em;
 }
 
+@media (max-width: 1320px) {
+    .toc { display: none }
+}
+
 .item {
     color: grey;
     text-decoration: none;

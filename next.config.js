@@ -14,5 +14,8 @@ module.exports = withCSS(withTypescript({
 
     return config
   },
-  cssModules: true
+  cssModules: true,
+  cssLoaderOptions: {
+    localIdentName: "[name]_[local]_[emoji:3]"
+  }
 }))
