@@ -4,6 +4,7 @@ import Styles from './Rule.css'
 import Markdown from 'react-markdown'
 import asciiRules from '../lib/ascii-rules.json'
 import keywords from '../lib/keywords.json'
+import History from './History'
 
 function addKeywords(text: string, id: number) {
     Object.keys(keywords).forEach(keyword => {
@@ -14,7 +15,7 @@ function addKeywords(text: string, id: number) {
     return text
 }
 
-export default function Group({rule}: {rule: RuleType}) {
+function Rule({rule, toggleHistory, showHistory}: {rule: RuleType, toggleHistory: () => void, showHistory: boolean}) {
     return <div>
         <a id={"Rule" + rule.id} />
         <h2 className={Styles.title}>
@@ -27,5 +28,11 @@ export default function Group({rule}: {rule: RuleType}) {
         <div className={Styles.text}>
             {asciiRules.includes(rule.id) ? <pre>{rule.text}</pre> : <Markdown source={addKeywords(rule.text, rule.id)} />}
         </div>
+        <span className={Styles.links}><a href="#" onClick={(e) => {e.preventDefault(); toggleHistory()}}>History</a></span>
+        {showHistory && <History history={rule.history}/>}
     </div>
 }
+
+export default React.memo(Rule, (prev, next) =>
+    prev.rule == next.rule && prev.showHistory == next.showHistory
+)

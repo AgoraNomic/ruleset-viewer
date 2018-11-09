@@ -27,3 +27,13 @@
     text-decoration: none;
     font-weight: bold;
 }
+
+.links {
+    margin-left: 6.75em;
+}
+
+.links a {
+    color: grey;
+    text-decoration: none;
+    font-style: italic;
+}

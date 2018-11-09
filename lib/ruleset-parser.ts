@@ -1,5 +1,6 @@
-import * as Query from 'lib/query'
+import * as Query from './query'
 import YAML from 'yaml'
+import * as History from './history'
 
 function checkNull<T>(thing: T | null | undefined, message: string): T {
 	if(thing == undefined) {
@@ -28,16 +29,13 @@ type RuleIndexRaw = {
 	rules: number[]
 }[]
 
-interface HistoryItem {
-	uncounted?: boolean
-}
 
 interface RuleRaw {
 	id: number
 	name: string
 	power: number
 	text: string
-	history: HistoryItem[]
+	history: History.HistoryItem[]
 	annotations: {}[]
 }
 
@@ -46,7 +44,7 @@ export interface Rule {
 	name: string
 	power: number
 	text: string
-	history: HistoryItem[]
+	history: History.HistoryItem[]
 	annotations: {}[]
 	rev: number
 }
@@ -78,7 +76,7 @@ export default function parseRuleset(data: Query.RulesetQuery): Ruleset {
 	return index.map(group => {
 		const rules = group.rules.map(id => {
 			const rule = getYAMLFile<RuleRaw>(rulesEntries, id.toString())
-			const rev = rule.history.filter(item => !(item.uncounted == true)).length
+			const rev = rule.history.filter(History.shouldCountRev).length
 			return {...rule, rev}
 		})
 		return { ...group, rules }
