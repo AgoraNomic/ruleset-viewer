@@ -1,7 +1,11 @@
 {
+    "version": 2,
     "name": "ruleset-viewer",
     "alias": "agora-ruleset.gaelan.me",
     "env": {
         "AGORA_GITHUB_API_TOKEN": "@github-api-token"
-    }
+    },
+    "builds": [
+        { "src": "next.config.js", "use": "@now/next" }
+    ]
 }
