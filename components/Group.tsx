@@ -3,7 +3,7 @@ import {Group as GroupType} from '../lib/ruleset-parser'
 import Rule from './Rule'
 import Immutable from 'immutable'
 
-import Styles from './Group.css'
+import Styles from '../styles/Group.css'
 
 export default function Group({group, toggleHistory, showingHistory}: {group: GroupType, toggleHistory: (id: number) => void, showingHistory: Immutable.Set<number>}) {
     return <div>

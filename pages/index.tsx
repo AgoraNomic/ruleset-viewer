@@ -4,7 +4,7 @@ import Head from "next/head"
 import { RulesetQuery } from '../lib/query'
 import parseRuleset, { Ruleset } from '../lib/ruleset-parser'
 import Group from '../components/Group'
-import Styles from './index.css'
+import Styles from '../styles/index.css'
 import TableOfContents from '../components/TableOfContents'
 import Waypoint from 'react-waypoint';
 import Immutable from 'immutable';

@@ -3,7 +3,7 @@ import Immutable from 'immutable'
 
 import { Ruleset } from '../lib/ruleset-parser'
 
-import Styles from './TableOfContents.css'
+import Styles from '../styles/TableOfContents.css'
 
 export default function TableOfContents (props: {ruleset: Ruleset, visible: Immutable.Set<string>}) {
     return <ul className={Styles.toc}>

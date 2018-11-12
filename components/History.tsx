@@ -1,6 +1,6 @@
 import React from 'react';
 import * as H from '../lib/history';
-import Styles from './History.css';
+import Styles from '../styles/History.css';
 
 function addRevs(history: H.HistoryItem[]) {
     let rev = 0

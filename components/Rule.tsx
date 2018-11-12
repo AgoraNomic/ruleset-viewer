@@ -1,6 +1,6 @@
 import React from 'react'
 import {Rule as RuleType} from '../lib/ruleset-parser'
-import Styles from './Rule.css'
+import Styles from '../styles/Rule.css'
 import Markdown from 'react-markdown'
 import asciiRules from '../lib/ascii-rules.json'
 import keywords from '../lib/keywords.json'
