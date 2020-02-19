@@ -1,0 +1,10 @@
+.home {
+  font-family: "Merriweather", serif;
+  box-sizing: border-box;
+}
+
+.main {
+  max-width: 64em;
+  margin: auto;
+  color: #333;
+}
