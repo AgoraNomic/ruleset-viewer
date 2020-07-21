@@ -1,9 +1,9 @@
-import {GraphQLClient} from 'graphql-request'
-import {RulesetQuery} from './query'
+import { GraphQLClient } from "graphql-request"
+import { RulesetQuery } from "./query"
 
 const query = `query RulesetQuery { 
   repository(owner: "AgoraNomic", name: "ruleset") {
-    ref(qualifiedName: "master") {
+    ref(qualifiedName: "main") {
       name
       target {
         ... on Commit {
@@ -15,6 +15,16 @@ const query = `query RulesetQuery {
                   entries {
                     name
                     object {
+                      ... on Tree {
+                        entries {
+                          name
+                          object {
+                            ... on Blob {
+                              text
+                            }
+                          }
+                        }
+                      }
                       ... on Blob {
                         text
                       }
@@ -33,8 +43,10 @@ const query = `query RulesetQuery {
   }
 }`
 
-const client = new GraphQLClient("https://api.github.com/graphql", {headers: {Authorization: "Bearer " + process.env.AGORA_GITHUB_API_TOKEN}})
+const client = new GraphQLClient("https://api.github.com/graphql", {
+  headers: { Authorization: "Bearer " + process.env.AGORA_GITHUB_API_TOKEN },
+})
 
 export async function getGitHubData(): Promise<RulesetQuery> {
-	return await client.request<RulesetQuery>(query)
+  return await client.request<RulesetQuery>(query)
 }
