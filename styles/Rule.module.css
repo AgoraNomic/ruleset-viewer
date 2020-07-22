@@ -1,39 +1,60 @@
 .id {
-    width: 4em;
-    display: inline-block;
-    text-align: right;
-    padding-right: .5em;
+  width: 4em;
+  display: inline-block;
+  text-align: right;
+  padding-right: 0.5em;
 }
 
 .rev {
-    color: grey;
+  color: grey;
 }
 
 .power {
-    color: grey;
-    float: right;
+  color: grey;
+  float: right;
 }
 
 .text {
-    margin-left: 6.75em;
+  margin-left: 6.75em;
+  max-width: 100%;
+  overflow-x: scroll;
 }
 
 .title {
-    font-size: 1.5em;
+  font-size: 1.5em;
+  margin-bottom: 0;
 }
 
 .text a {
-    color: black;
-    text-decoration: none;
-    font-weight: bold;
+  color: black;
+  text-decoration: none;
+  font-weight: bold;
 }
 
 .links {
-    margin-left: 6.75em;
+  margin-left: 6.75em;
 }
 
 .links a {
-    color: grey;
-    text-decoration: none;
-    font-style: italic;
+  color: grey;
+  text-decoration: none;
+  font-style: italic;
+}
+
+@media (max-width: 40em) {
+  .power {
+    display: block;
+    float: none;
+  }
+}
+
+@media (max-width: 64em) {
+  .id {
+    display: inline;
+  }
+
+  .text,
+  .links {
+    margin-left: 0;
+  }
 }

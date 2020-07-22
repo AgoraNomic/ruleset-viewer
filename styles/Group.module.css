@@ -1,8 +1,14 @@
 .note {
-    font-style: italic;
-    color: grey;
+  font-style: italic;
+  color: grey;
 }
 
 .header {
-    margin-left: 6.75em;
+  margin-left: 6.75em;
+}
+
+@media (max-width: 64em) {
+  .header {
+    margin-left: 0;
+  }
 }
