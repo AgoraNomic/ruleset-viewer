@@ -1,17 +1,16 @@
 import React from "react"
-import { NextPageContext } from "next"
+import { GetStaticProps, InferGetStaticPropsType } from "next"
 import Head from "next/head"
-import { RulesetQuery } from "../lib/query"
 import parseRuleset, { Ruleset } from "../lib/ruleset-parser"
 import Group from "../components/Group"
 import Styles from "../styles/index.module.css"
 import TableOfContents from "../components/TableOfContents"
-import Waypoint from "react-waypoint"
+import { Waypoint } from "react-waypoint"
 import Immutable from "immutable"
-import fetch from "isomorphic-unfetch"
+import { getGitHubData } from "lib/github-api"
 
 class Home extends React.Component<
-  { ruleset: Ruleset },
+  InferGetStaticPropsType<typeof getStaticProps>,
   {
     visibleGroups: Immutable.Set<String>
     showingHistory: Immutable.Set<number>
@@ -28,16 +27,19 @@ class Home extends React.Component<
           />
         </Head>
         <main className={Styles.main}>
-          {this.props.ruleset.map(group => (
+          <p className={Styles.updated}>
+            Last updated {new Date(this.props.updateTime).toLocaleString()}
+          </p>
+          {this.props.ruleset.map((group) => (
             <Waypoint
               onEnter={() =>
                 this.setState({
-                  visibleGroups: this.state.visibleGroups.add(group.name)
+                  visibleGroups: this.state.visibleGroups.add(group.name),
                 })
               }
               onLeave={() =>
                 this.setState({
-                  visibleGroups: this.state.visibleGroups.remove(group.name)
+                  visibleGroups: this.state.visibleGroups.remove(group.name),
                 })
               }
               fireOnRapidScroll={true}
@@ -65,29 +67,24 @@ class Home extends React.Component<
     this.setState({
       showingHistory: this.state.showingHistory.has(id)
         ? this.state.showingHistory.remove(id)
-        : this.state.showingHistory.add(id)
+        : this.state.showingHistory.add(id),
     })
-  }
-
-  static async getInitialProps({ req }: NextPageContext) {
-    let origin
-    if (!req) {
-      origin = ""
-    } else if (req.headers["x-now-deployment-url"]) {
-      origin = `https://${req.headers["x-now-deployment-url"]}`
-    } else {
-      origin = `http://${req.headers.host}`
-    }
-
-    return {
-      ruleset: parseRuleset(
-        await ((await fetch(`${origin}/api/data`)).json() as Promise<
-          RulesetQuery
-        >)
-      )
-    }
   }
 
   state = { visibleGroups: Immutable.Set(), showingHistory: Immutable.Set() }
 }
+
+export const getStaticProps: GetStaticProps<{
+  ruleset: Ruleset
+  updateTime: number
+}> = async function getStaticProps() {
+  return {
+    props: {
+      ruleset: parseRuleset(await getGitHubData()),
+      updateTime: new Date().getTime(),
+    },
+    revalidate: 3600,
+  }
+}
+
 export default Home

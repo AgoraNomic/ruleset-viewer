@@ -8,3 +8,9 @@
   margin: auto;
   color: #333;
 }
+
+.updated {
+  margin-left: 6.75em;
+  font-style: italic;
+  color: grey;
+}
