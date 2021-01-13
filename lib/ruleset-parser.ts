@@ -52,6 +52,7 @@ export interface Rule {
   history: History.HistoryItem[]
   annotations: {}[]
   rev: number
+  asciiart?: boolean | undefined
 }
 
 export type Ruleset = Group[]

@@ -2,7 +2,6 @@ import React from "react"
 import { Rule as RuleType } from "../lib/ruleset-parser"
 import Styles from "../styles/Rule.module.css"
 import Markdown from "react-markdown"
-import asciiRules from "../lib/ascii-rules.json"
 import keywords from "../lib/keywords.json"
 import History from "./History"
 
@@ -41,7 +40,7 @@ function Rule({
         <span className={Styles.power}>Power {rule.power}</span>
       </h2>
       <div className={Styles.text}>
-        {asciiRules.includes(rule.id) ? (
+        {(rule.asciiart) ? (
           <pre>{rule.text}</pre>
         ) : (
           <Markdown source={addKeywords(rule.text, rule.id)} />
