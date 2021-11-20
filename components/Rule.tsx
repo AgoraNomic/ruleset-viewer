@@ -6,7 +6,7 @@ import keywords from "../lib/keywords.json"
 import History from "./History"
 
 function addKeywords(text: string, id: number) {
-  Object.keys(keywords).forEach(keyword => {
+  Object.keys(keywords).forEach((keyword) => {
     if ((keywords as { [keyword: string]: number })[keyword] !== id) {
       text = text.replace(
         new RegExp("\\b" + keyword + "\\b"),
@@ -22,7 +22,7 @@ function addKeywords(text: string, id: number) {
 function Rule({
   rule,
   toggleHistory,
-  showHistory
+  showHistory,
 }: {
   rule: RuleType
   toggleHistory: () => void
@@ -40,7 +40,7 @@ function Rule({
         <span className={Styles.power}>Power {rule.power}</span>
       </h2>
       <div className={Styles.text}>
-        {(rule.asciiart) ? (
+        {rule.asciiart ? (
           <pre>{rule.text}</pre>
         ) : (
           <Markdown source={addKeywords(rule.text, rule.id)} />
@@ -49,7 +49,7 @@ function Rule({
       <span className={Styles.links}>
         <a
           href="#"
-          onClick={e => {
+          onClick={(e) => {
             e.preventDefault()
             toggleHistory()
           }}

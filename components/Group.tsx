@@ -8,7 +8,7 @@ import Styles from "../styles/Group.module.css"
 export default function Group({
   group,
   toggleHistory,
-  showingHistory
+  showingHistory,
 }: {
   group: GroupType
   toggleHistory: (id: number) => void
@@ -21,7 +21,7 @@ export default function Group({
         <h1>{group.name}</h1>
         <p className={Styles.note}>{group.note}</p>
       </div>
-      {group.rules.map(rule => (
+      {group.rules.map((rule) => (
         <Rule
           rule={rule}
           toggleHistory={() => toggleHistory(rule.id)}

@@ -1,21 +1,21 @@
 .rev {
-    color: grey;
-    display: inline-block;
-    width: 2em;
-    text-align: right;
-    margin-right: .25em;
+  color: grey;
+  display: inline-block;
+  width: 2em;
+  text-align: right;
+  margin-right: 0.25em;
 }
 
 .history li {
-    list-style: none;
-    margin-left: 4.5em;
+  list-style: none;
+  margin-left: 4.5em;
 }
 
 .history {
-    padding: 0;
+  padding: 0;
 }
 
 .datestamp {
-    color: grey;
-    font-style: italic;
+  color: grey;
+  font-style: italic;
 }

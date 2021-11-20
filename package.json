@@ -24,5 +24,7 @@
     "typescript": "^3.7.5",
     "yaml": "^1.0.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "prettier": "^2.4.1"
+  }
 }

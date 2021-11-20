@@ -1,104 +1,125 @@
 export type HistoryItem<ChangeType = Change, AgentType = Agent> = {
-    change: ChangeType,
-    agent?: AgentType,
-    date: Datestamp
+  change: ChangeType
+  agent?: AgentType
+  date: Datestamp
 }
 
-export type Change = Enactment | Initial | Mutation | Renumbering |
-Reenactment | Amendment | InfectionAmendment | Infection | Retitling | Repeal |
-PowerChange | CommitteeAssignment | Unknown;
+export type Change =
+  | Enactment
+  | Initial
+  | Mutation
+  | Renumbering
+  | Reenactment
+  | Amendment
+  | InfectionAmendment
+  | Infection
+  | Retitling
+  | Repeal
+  | PowerChange
+  | CommitteeAssignment
+  | Unknown
 
 export interface Enactment {
-    type: "enactment"
+  type: "enactment"
 }
 
 export interface Initial {
-    type: "initial"
-    mutability: "immutable" | "mutable"
-    id: number
+  type: "initial"
+  mutability: "immutable" | "mutable"
+  id: number
 }
 
 export interface Mutation {
-    type: "mutation"
-    "old-mi"?: string
-    "new-mi"?: string
+  type: "mutation"
+  "old-mi"?: string
+  "new-mi"?: string
 }
 
 export interface Renumbering {
-    type: "renumbering"
+  type: "renumbering"
 }
 
 export interface Reenactment {
-    type: "reenactment"
+  type: "reenactment"
 }
 
 export interface Amendment {
-    type: "amendment"
-    uncounted?: boolean
+  type: "amendment"
+  uncounted?: boolean
 }
 
 export interface InfectionAmendment {
-    type: "infection-amendment"
+  type: "infection-amendment"
 }
 
 export interface Infection {
-    type: "infection"
+  type: "infection"
 }
 
 export interface Retitling {
-    type: "retitling"
+  type: "retitling"
 }
 
 export interface Repeal {
-    type: "repeal"
+  type: "repeal"
 }
 
 export interface PowerChange {
-    type: "power-change"
-    "old-power"?: number
-    "new-power"?: number
+  type: "power-change"
+  "old-power"?: number
+  "new-power"?: number
 }
 
 interface CommitteeAssignment {
-    type: "committee-assignment"
-    committee: "string"
+  type: "committee-assignment"
+  committee: "string"
 }
 
 interface Unknown {
-    type: "unknown"
+  type: "unknown"
 }
 
-export type Agent = Proposal | Rule | Convergance | Cleaning | Ratification |
-Decree;
+export type Agent =
+  | Proposal
+  | Rule
+  | Convergance
+  | Cleaning
+  | Ratification
+  | Decree
 
 interface Proposal {
-    proposal: number
+  proposal: number
 }
 
 interface Rule {
-    rule: number
+  rule: number
 }
 
 interface Convergance {
-    convergance: Agent
+  convergance: Agent
 }
 
 interface Cleaning {
-    cleaning: {by: string}
+  cleaning: { by: string }
 }
 
 interface Ratification {
-    ratification: {document: string}
+  ratification: { document: string }
 }
 
 interface Decree {
-    decree: string
+  decree: string
 }
 
-export type Datestamp = string | {around: string} | {between: string, and: string}
+export type Datestamp =
+  | string
+  | { around: string }
+  | { between: string; and: string }
 
 export function shouldCountRev(item: HistoryItem) {
-    return item.change.type == "reenactment" ||
-        item.change.type == "infection-amendment" || 
-        (item.change.type == "amendment" && !item.change.uncounted)
+  return (
+    item.change.type == "reenactment" ||
+    item.change.type == "infection-amendment" ||
+    (item.change.type == "amendment" && !item.change.uncounted)
+  )
 }

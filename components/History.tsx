@@ -4,7 +4,7 @@ import Styles from "../styles/History.module.css"
 
 function addRevs(history: H.HistoryItem[]) {
   let rev = 0
-  return history.map(item => {
+  return history.map((item) => {
     if (H.shouldCountRev(item)) {
       rev++
       return { ...item, rev }
@@ -107,7 +107,7 @@ function formatDate(date: string) {
   return new Date(date).toLocaleDateString(undefined, {
     day: "numeric",
     month: "short",
-    year: "numeric"
+    year: "numeric",
   })
 }
 function Datestamp({ date }: { date: H.Datestamp }) {

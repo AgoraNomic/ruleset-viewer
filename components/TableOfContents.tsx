@@ -11,7 +11,7 @@ export default function TableOfContents(props: {
 }) {
   return (
     <ul className={Styles.toc}>
-      {props.ruleset.map(group => (
+      {props.ruleset.map((group) => (
         <li key={group.name}>
           <a
             href={"#" + group.name.replace(/[ &]/g, "")}
