@@ -7,7 +7,7 @@ import Styles from "../styles/index.module.css"
 import TableOfContents from "../components/TableOfContents"
 import { Waypoint } from "react-waypoint"
 import Immutable from "immutable"
-import { getGitHubData } from "lib/github-api"
+import { getGitHubData } from "lib/get-repo"
 
 class Home extends React.Component<
   InferGetStaticPropsType<typeof getStaticProps>,
