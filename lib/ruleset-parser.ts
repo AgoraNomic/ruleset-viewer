@@ -1,6 +1,6 @@
-import * as Query from "./query"
 import YAML from "yaml"
 import * as History from "./history"
+import { DirTree } from "./get-repo"
 
 function checkNull<T>(thing: T | null | undefined, message: string): T {
   if (thing == undefined) {
@@ -10,23 +10,22 @@ function checkNull<T>(thing: T | null | undefined, message: string): T {
   return thing
 }
 
-function getSubtreeEntries(entries: Query.SelectionOnEntries1[], name: string) {
-  const entry = checkNull(
-    entries.find((e) => e.name == name),
-    `No ${name} folder.`
-  )
-  const object = checkNull(entry.object, "WHAT")
-  return checkNull(object.entries, `${name} isn't a folder`)
+function getDir(entries: DirTree, name: string): DirTree {
+  const entry = checkNull(entries[name], `No ${name} folder.`)
+  if (typeof entry == "object") {
+    return entry
+  } else {
+    throw new Error(`${name} isn't a folder`)
+  }
 }
 
-function getYAMLFile<T>(entries: Query.SelectionOnEntries[], name: string): T {
-  const entry = checkNull(
-    entries.find((e) => e.name == name),
-    `${name} doesn't exist`
-  )
-  const object = checkNull(entry.object, "WHAAAT")
-  const text = checkNull(object.text, `${name} isn't a file`)
-  return YAML.parse(text)
+function getYAMLFile<T>(entries: DirTree, name: string): T {
+  const entry = checkNull(entries[name], `${name} doesn't exist`)
+  if (typeof entry == "string") {
+    return YAML.parse(entry)
+  } else {
+    throw new Error(`${name} isn't a file`)
+  }
 }
 
 type RuleIndexRaw = {
@@ -69,16 +68,13 @@ export type Group = {
   rules: Rule[]
 }
 
-export default function parseRuleset(data: Query.RulesetQuery): Ruleset {
-  const repo = checkNull(data.repository, "Repo doesn't exist.")
-  const ref = checkNull(repo.ref, "Main branch doesn't exist.")
-  const tree = checkNull(ref.target.tree, "Master branch is very confused.")
-  const entries = checkNull(tree.entries, "OK, what?")
-  const rulesData = getSubtreeEntries(entries, "rules_data")
-  const configEntries = getSubtreeEntries(rulesData, "config")
+export default function parseRuleset(data: DirTree): Ruleset {
+  const root = getDir(data, "ruleset-main")
+  const rulesData = getDir(root, "rules_data")
+  const configEntries = getDir(rulesData, "config")
   const index = getYAMLFile<RuleIndexRaw>(configEntries, "index")
 
-  const rulesEntries = getSubtreeEntries(rulesData, "rules")
+  const rulesEntries = getDir(rulesData, "rules")
 
   return index.map((group) => {
     const rules = group.rules.map((id) => {
