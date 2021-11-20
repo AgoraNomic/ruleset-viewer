@@ -12,7 +12,7 @@ import { getGitHubData } from "lib/get-repo"
 class Home extends React.Component<
   InferGetStaticPropsType<typeof getStaticProps>,
   {
-    visibleGroups: Immutable.Set<String>
+    visibleGroups: Immutable.Set<string>
     showingHistory: Immutable.Set<number>
   }
 > {
@@ -71,7 +71,10 @@ class Home extends React.Component<
     })
   }
 
-  state = { visibleGroups: Immutable.Set(), showingHistory: Immutable.Set() }
+  state = {
+    visibleGroups: Immutable.Set<string>(),
+    showingHistory: Immutable.Set<number>(),
+  }
 }
 
 export const getStaticProps: GetStaticProps<{
