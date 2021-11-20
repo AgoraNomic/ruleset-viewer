@@ -43,7 +43,7 @@ function Rule({
         {rule.asciiart ? (
           <pre>{rule.text}</pre>
         ) : (
-          <Markdown source={addKeywords(rule.text, rule.id)} />
+          <Markdown children={addKeywords(rule.text, rule.id)} />
         )}
       </div>
       <span className={Styles.links}>
