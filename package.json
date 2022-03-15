@@ -16,7 +16,7 @@
     "react-markdown": "^8.0.1",
     "react-waypoint": "^10.1.0",
     "tar-stream": "^2.2.0",
-    "typescript": "^4.5.5",
+    "typescript": "^4.6.2",
     "yaml": "^1.10.2"
   },
   "devDependencies": {
