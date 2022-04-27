@@ -6,7 +6,7 @@
     "start": "next start"
   },
   "dependencies": {
-    "@types/react": "^17.0.40",
+    "@types/react": "^18.0.8",
     "@types/tar-stream": "^2.2.2",
     "@types/yaml": "^1.9.7",
     "immutable": "^4.0.0",
